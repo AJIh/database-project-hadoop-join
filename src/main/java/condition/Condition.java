@@ -1,10 +1,10 @@
 package condition;
 
-import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.io.Text;
 
 /**
  * Created by aji on 2017/1/16.
  */
 public interface Condition {
-    Boolean test(Result a, Result b);
+    Boolean test(Text a, Text b);
 }
