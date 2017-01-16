@@ -26,17 +26,23 @@ public class CartesianRecordReader<K1, V1, K2, V2> extends RecordReader<Text, Te
     @Override
     public void initialize(InputSplit inputSplit, TaskAttemptContext jobContext) throws IOException, InterruptedException {
         CompositeInputSplit split = (CompositeInputSplit) inputSplit;
+        InputSplit leftSplit = split.get(0);
+        InputSplit rightSplit = split.get(1);
+
         Configuration conf = jobContext.getConfiguration();
-        this.rightIS = split.get(1);
-        this.rightContext = jobContext;
 
         Class<? extends FileInputFormat> leftInputFileFormat = CartesianConfUtils.getLeftInputFormat(conf);
         FileInputFormat leftFIF = ReflectionUtils.newInstance(leftInputFileFormat, conf);
         leftRR = leftFIF.createRecordReader(split.get(0), jobContext);
+        leftRR.initialize(leftSplit, jobContext);
+
 
         Class<? extends FileInputFormat> rightInputFileFormat = CartesianConfUtils.getRightInputFormat(conf);
+        rightIS = rightSplit;
+        rightContext = jobContext;
         rightFIF = ReflectionUtils.newInstance(rightInputFileFormat, conf);
         rightRR = rightFIF.createRecordReader(rightIS, jobContext);
+        rightRR.initialize(rightSplit, jobContext);
     }
 
     @Override
@@ -75,6 +81,7 @@ public class CartesianRecordReader<K1, V1, K2, V2> extends RecordReader<Text, Te
 
                     goToNextLeft = allDone = false;
                     rightRR = rightFIF.createRecordReader(rightIS, rightContext);
+                    rightRR.initialize(rightIS, rightContext);
                 }
             }
 

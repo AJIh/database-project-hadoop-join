@@ -43,7 +43,7 @@ public class CartesianInputFormat extends FileInputFormat {
                     CompositeInputSplit cartesianSplit = new CompositeInputSplit(2);
                     cartesianSplit.add(left);
                     cartesianSplit.add(right);
-                    cartesianResultSplits.set(i, cartesianSplit);
+                    cartesianResultSplits.add(cartesianSplit);
                     i++;
                 }
             }
