@@ -23,11 +23,11 @@ public class CartesianConfUtils {
         conf.set(LEFT_INPUT_PATH, inputPath);
     }
 
-    private static Class<? extends FileInputFormat> getLeftInputFormat(Configuration conf) {
+    static Class<? extends FileInputFormat> getLeftInputFormat(Configuration conf) {
         return conf.getClass(LEFT_INPUT_FORMAT, null, FileInputFormat.class);
     }
 
-    private static String getLeftInputPath(Configuration conf) {
+    static String getLeftInputPath(Configuration conf) {
         return conf.get(LEFT_INPUT_PATH);
     }
 
@@ -36,11 +36,11 @@ public class CartesianConfUtils {
         conf.set(RIGHT_INPUT_PATH, inputPath);
     }
 
-    private static Class<? extends FileInputFormat> getRightInputFormat(Configuration conf) {
+    static Class<? extends FileInputFormat> getRightInputFormat(Configuration conf) {
         return conf.getClass(RIGHT_INPUT_FORMAT, null, FileInputFormat.class);
     }
 
-    private static String getRightInputPath(Configuration conf) {
+    static String getRightInputPath(Configuration conf) {
         return conf.get(RIGHT_INPUT_PATH);
     }
 
@@ -48,7 +48,7 @@ public class CartesianConfUtils {
         conf.setClass(CARTESIAN_PRODUCT_MAPPER_FILTER, conditionClass, Condition.class);
     }
 
-    private static Class<? extends Condition> getCartesianProductMapperFilter(Configuration conf) {
+    static Class<? extends Condition> getCartesianProductMapperFilter(Configuration conf) {
         return conf.getClass(CARTESIAN_PRODUCT_MAPPER_FILTER, null, Condition.class);
     }
 
@@ -56,7 +56,7 @@ public class CartesianConfUtils {
         conf.setClass(CARTESIAN_PRODUCT_MAPPER_MERGER, mergerClass, Merger.class);
     }
 
-    private static Class<? extends Merger> getCartesianProductMapperMerger(Configuration conf) {
+    static Class<? extends Merger> getCartesianProductMapperMerger(Configuration conf) {
         return conf.getClass(CARTESIAN_PRODUCT_MAPPER_MERGER, null, Merger.class);
     }
 }
