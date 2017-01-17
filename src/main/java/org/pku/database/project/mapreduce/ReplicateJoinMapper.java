@@ -10,12 +10,13 @@ import java.io.IOException;
 /**
  * Created by aji on 2017/1/16.
  */
+@SuppressWarnings({ "unchecked" })
 public abstract class ReplicateJoinMapper<T, KEYIN, VALUEIN, KEYOUT, VALUEOUT> extends Mapper<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
 
     protected Condition<T> condition = new Condition<T>() {
         @Override
         public Boolean test(T a, T b) {
-            return null;
+            return true;
         }
     };
 
