@@ -1,12 +1,8 @@
 package org.pku.database.project.join.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.util.ToolRunner;
-import org.pku.database.project.condition.Condition;
 import org.pku.database.project.join.CacheReplicateJoinTool;
+import org.pku.database.project.join.Dataset;
 import org.pku.database.project.mapreduce.CachedReplicateJoinMapper;
-import org.pku.database.project.mapreduce.JoinConfigurationUtils;
 import org.pku.database.project.mapreduce.impl.JSONCacheReplicateMapper;
 
 /**
@@ -19,25 +15,7 @@ public class JSONCacheReplicateJoinTool extends CacheReplicateJoinTool {
         return JSONCacheReplicateMapper.class;
     }
 
-    public JSONCacheReplicateJoinTool(String leftOrRight) {
+    public JSONCacheReplicateJoinTool(Dataset leftOrRight) {
         super(leftOrRight);
-    }
-
-    public static void main(String[] args) throws Exception {
-        class JoinCondition implements Condition<JSONObject> {
-            @Override
-            public Boolean test(JSONObject a, JSONObject b) {
-                return a.getInteger("age") > b.getInteger("time");
-            }
-        }
-
-        Configuration conf = new Configuration();
-        JoinConfigurationUtils.setJoinProductFilter(conf, JoinCondition.class);
-        String[] inputAndOutput = new String[]{
-                "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/persons",
-                "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/buildings",
-                "./output/broadcast-join"
-        };
-        ToolRunner.run(conf, new JSONCacheReplicateJoinTool("left"), inputAndOutput);
     }
 }

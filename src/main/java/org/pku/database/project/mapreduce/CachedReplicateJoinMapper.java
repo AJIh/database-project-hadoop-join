@@ -5,6 +5,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.pku.database.project.join.Dataset;
 
 import javax.xml.crypto.Data;
 import java.io.*;
@@ -17,10 +18,6 @@ import java.util.List;
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T, Object, Text, NullWritable, Text> {
-    private enum Dataset {
-        NULL,
-        LEFT, RIGHT
-    }
 
     private static final String CACHED_DATASET = "org.pku.database.project.cache.dataset.which";
 

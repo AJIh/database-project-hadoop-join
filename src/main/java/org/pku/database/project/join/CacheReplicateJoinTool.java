@@ -3,6 +3,7 @@ package org.pku.database.project.join;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -21,9 +22,9 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
 
     public abstract Class<? extends CachedReplicateJoinMapper> getMapperClass();
 
-    private String leftOrRight = null;
+    private Dataset leftOrRight = null;
 
-    public CacheReplicateJoinTool(String leftOrRight) {
+    public CacheReplicateJoinTool(Dataset leftOrRight) {
         this.leftOrRight = leftOrRight;
     }
 
@@ -54,10 +55,10 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
         String outputPath = args[2];
 
 
-        if (leftOrRight.equalsIgnoreCase("left")) {
+        if (leftOrRight == Dataset.LEFT) {
             JoinConfigurationUtils.cacheLeft(job, new Path(leftPath).toUri());
             TextInputFormat.setInputPaths(job, new Path(rightPath));
-        } else if (leftOrRight.equalsIgnoreCase("right")) {
+        } else if (leftOrRight == Dataset.RIGHT) {
             JoinConfigurationUtils.cacheRight(job, new Path(rightPath).toUri());
             TextInputFormat.setInputPaths(job, new Path(leftPath));
         } else {
