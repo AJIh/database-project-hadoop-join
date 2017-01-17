@@ -48,6 +48,8 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
+        super.setup(context);
+
         which = context.getConfiguration().getEnum(CACHED_DATASET, Dataset.NULL);
 
         URI[] files = context.getCacheFiles();
