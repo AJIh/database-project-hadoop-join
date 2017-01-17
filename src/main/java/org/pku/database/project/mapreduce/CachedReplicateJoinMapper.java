@@ -57,7 +57,7 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
 
     private static void addDataset(Job job, URI uri, Dataset which) {
         testCacheIsEmpty(job);
-        setCachedDatasetPath(job.getConfiguration(), uri); // TODO
+        setCachedDatasetPath(job.getConfiguration(), uri); // TODO 使用hdfs的话直接使用CacheFile即可
         // job.addCacheFile(uri);
         job.getConfiguration().setEnum(CACHED_DATASET, which);
     }
@@ -79,7 +79,7 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
 
         which = context.getConfiguration().getEnum(CACHED_DATASET, Dataset.NULL);
 
-        URI[] files = getCachedDatasetPath(context.getConfiguration());
+        URI[] files = getCachedDatasetPath(context.getConfiguration()); // TODO 使用hdfs的话直接使用CacheFile即可
 
         // URI[] files = context.getCacheFiles();
 
