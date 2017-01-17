@@ -19,6 +19,10 @@ public class JSONCacheReplicateJoinTool extends CacheReplicateJoinTool {
         return JSONCacheReplicateMapper.class;
     }
 
+    public JSONCacheReplicateJoinTool(String leftOrRight) {
+        super(leftOrRight);
+    }
+
     public static void main(String[] args) throws Exception {
         class JoinCondition implements Condition<JSONObject> {
             @Override
@@ -32,9 +36,8 @@ public class JSONCacheReplicateJoinTool extends CacheReplicateJoinTool {
         String[] inputAndOutput = new String[]{
                 "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/persons",
                 "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/buildings",
-                "./output/personsAndBuildings",
-                "left"
+                "./output/broadcast-join"
         };
-        ToolRunner.run(conf, new JSONCacheReplicateJoinTool(), inputAndOutput);
+        ToolRunner.run(conf, new JSONCacheReplicateJoinTool("left"), inputAndOutput);
     }
 }

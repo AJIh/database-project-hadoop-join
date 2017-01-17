@@ -21,6 +21,12 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
 
     public abstract Class<? extends CachedReplicateJoinMapper> getMapperClass();
 
+    private String leftOrRight = null;
+
+    public CacheReplicateJoinTool(String leftOrRight) {
+        this.leftOrRight = leftOrRight;
+    }
+
     /**
      *
      * @param args dataAPath dataBPath outputPath left/right
@@ -30,8 +36,8 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
     @Override
     public int run(String[] args) throws Exception {
 
-        if (args.length != 4) {
-            LOG.error("4 args required: dataAPath dataBPath outputPath left/right");
+        if (args.length != 3) {
+            LOG.error("3 args required: dataAPath dataBPath outputPath");
             return 1;
         }
 
@@ -46,7 +52,6 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
         String leftPath = args[0];
         String rightPath = args[1];
         String outputPath = args[2];
-        String leftOrRight = args[3];
 
 
         if (leftOrRight.equalsIgnoreCase("left")) {
@@ -56,7 +61,7 @@ abstract public class CacheReplicateJoinTool extends ReplicateJoinTool {
             JoinConfigurationUtils.cacheRight(job, new Path(rightPath).toUri());
             TextInputFormat.setInputPaths(job, new Path(leftPath));
         } else {
-            LOG.error("4 args required: dataAPath dataBPath outputPath left/right");
+            LOG.error("3 args required: dataAPath dataBPath outputPath");
             return 2;
         }
 

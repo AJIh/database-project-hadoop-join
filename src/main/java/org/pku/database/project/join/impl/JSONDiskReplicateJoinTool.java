@@ -30,7 +30,9 @@ public class JSONDiskReplicateJoinTool extends DiskReplicateJoinTool {
         Configuration conf = new Configuration();
         JoinConfigurationUtils.setJoinProductFilter(conf, JoinCondition.class);
         String[] inputAndOutput = new String[]{
-                "./input/persons", "./input/buildings", "./output/personAndBuildings"
+                "./input/persons",
+                "./input/buildings",
+                "./output/replicate-join"
         };
         ToolRunner.run(conf, new JSONDiskReplicateJoinTool(), inputAndOutput);
     }
