@@ -1,5 +1,7 @@
 package org.pku.database.project.mapreduce;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -20,7 +22,31 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
         LEFT, RIGHT
     }
 
-    private static final String CACHED_DATASET = "org.pku.database.project.cacheList.dataset";
+    private static final String CACHED_DATASET = "org.pku.database.project.cache.dataset.which";
+
+    @Deprecated
+    private static final String CACHED_DATASET_PATH = "org.pku.database.project.cache.dataset.path";
+
+    @Deprecated
+    private static void setCachedDatasetPath(Configuration conf, URI ...uris) {
+        List<String> urisStr = new ArrayList<>();
+        for (URI uri: uris) {
+            urisStr.add(uri.toString());
+        }
+        conf.set(CACHED_DATASET_PATH, String.join(",", urisStr));
+    }
+
+    @Deprecated
+    private static URI[] getCachedDatasetPath(Configuration conf) {
+        String[] pathsStr = conf.get(CACHED_DATASET_PATH).split(",");
+        URI[] uris = new URI[pathsStr.length];
+        int i = 0;
+        for (String pathURI: pathsStr) {
+            uris[i] = URI.create(pathURI);
+            i++;
+        }
+        return uris;
+    }
 
     private static void testCacheIsEmpty(Job job) {
         Dataset dataset = job.getConfiguration().getEnum(CACHED_DATASET, Dataset.NULL);
@@ -31,7 +57,8 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
 
     private static void addDataset(Job job, URI uri, Dataset which) {
         testCacheIsEmpty(job);
-        job.addCacheFile(uri);
+        setCachedDatasetPath(job.getConfiguration(), uri); // TODO
+        // job.addCacheFile(uri);
         job.getConfiguration().setEnum(CACHED_DATASET, which);
     }
 
@@ -52,7 +79,9 @@ abstract public class CachedReplicateJoinMapper<T> extends ReplicateJoinMapper<T
 
         which = context.getConfiguration().getEnum(CACHED_DATASET, Dataset.NULL);
 
-        URI[] files = context.getCacheFiles();
+        URI[] files = getCachedDatasetPath(context.getConfiguration());
+
+        // URI[] files = context.getCacheFiles();
 
         if (which == Dataset.NULL || files == null || files.length == 0) {
             throw new RuntimeException("Not dataset in DistributedCache");

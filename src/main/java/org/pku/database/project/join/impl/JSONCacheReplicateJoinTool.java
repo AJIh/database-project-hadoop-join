@@ -30,8 +30,8 @@ public class JSONCacheReplicateJoinTool extends CacheReplicateJoinTool {
         Configuration conf = new Configuration();
         JoinConfigurationUtils.setJoinProductFilter(conf, JoinCondition.class);
         String[] inputAndOutput = new String[]{
-                "http://127.0.0.1/persons",
-                "./input/buildings",
+                "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/persons",
+                "file:///Users/haoyoufeng/Documents/git/hadoop-join/input/buildings",
                 "./output/personsAndBuildings",
                 "left"
         };
