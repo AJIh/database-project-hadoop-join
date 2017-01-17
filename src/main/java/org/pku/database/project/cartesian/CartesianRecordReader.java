@@ -1,4 +1,4 @@
-package cartesian;
+package org.pku.database.project.cartesian;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;

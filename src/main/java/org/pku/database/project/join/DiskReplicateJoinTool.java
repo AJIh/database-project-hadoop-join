@@ -1,8 +1,8 @@
-package join;
+package org.pku.database.project.join;
 
-import cartesian.CartesianConfUtils;
-import cartesian.CartesianInputFormat;
-import mapreduce.DiskReplicateJoinMapper;
+import org.pku.database.project.cartesian.CartesianConfUtils;
+import org.pku.database.project.cartesian.CartesianInputFormat;
+import org.pku.database.project.mapreduce.DiskReplicateJoinMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
@@ -36,18 +36,17 @@ abstract public class DiskReplicateJoinTool extends ReplicateJoinTool {
             return 1;
         }
 
-        Job job = Job.getInstance(getConf(), "DiskReplicateJoinTool");
-        Configuration conf = job.getConfiguration(); // 必须在这里保存 conf 的拷贝，因为 job 会在创建时 clone 一次
+        Configuration conf = getConf();
+        CartesianConfUtils.setLeftInputInfo(conf, TextInputFormat.class, args[0]);
+        CartesianConfUtils.setRightInputInfo(conf, TextInputFormat.class, args[1]);
+        // 必须在这里设置好 conf，因为 job 会在创建时 clone 一次
 
-
+        Job job = Job.getInstance(conf, "DiskReplicateJoinTool");
         job.setJarByClass(DiskReplicateJoinTool.class);
         job.setMapperClass(getMapperClass());
         job.setNumReduceTasks(0);
 
         job.setInputFormatClass(CartesianInputFormat.class);
-        CartesianConfUtils.setLeftInputInfo(conf, TextInputFormat.class, args[0]);
-        CartesianConfUtils.setRightInputInfo(conf, TextInputFormat.class, args[1]);
-
         TextOutputFormat.setOutputPath(job, new Path(args[2]));
         job.setOutputKeyClass(NullWritable.class);
         job.setOutputValueClass(Text.class);

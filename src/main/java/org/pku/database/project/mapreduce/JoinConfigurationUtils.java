@@ -1,6 +1,6 @@
-package mapreduce;
+package org.pku.database.project.mapreduce;
 
-import condition.Condition;
+import org.pku.database.project.condition.Condition;
 import org.apache.hadoop.conf.Configuration;
 
 /**

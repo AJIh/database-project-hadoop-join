@@ -1,4 +1,4 @@
-package condition;
+package org.pku.database.project.condition;
 
 /**
  * Created by aji on 2017/1/16.

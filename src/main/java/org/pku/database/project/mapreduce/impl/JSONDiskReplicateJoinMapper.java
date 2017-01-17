@@ -1,7 +1,7 @@
-package mapreduce.impl;
+package org.pku.database.project.mapreduce.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import mapreduce.DiskReplicateJoinMapper;
+import org.pku.database.project.mapreduce.DiskReplicateJoinMapper;
 
 /**
  * Created by aji on 2017/1/16.

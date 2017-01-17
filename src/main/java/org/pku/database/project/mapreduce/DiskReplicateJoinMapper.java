@@ -1,8 +1,7 @@
-package mapreduce;
+package org.pku.database.project.mapreduce;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 

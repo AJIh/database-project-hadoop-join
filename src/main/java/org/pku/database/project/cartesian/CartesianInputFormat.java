@@ -1,4 +1,4 @@
-package cartesian;
+package org.pku.database.project.cartesian;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

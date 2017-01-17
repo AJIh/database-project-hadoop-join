@@ -1,11 +1,11 @@
-package join.impl;
+package org.pku.database.project.join.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import condition.Condition;
-import join.DiskReplicateJoinTool;
-import mapreduce.DiskReplicateJoinMapper;
-import mapreduce.JoinConfigurationUtils;
-import mapreduce.impl.JSONDiskReplicateJoinMapper;
+import org.pku.database.project.condition.Condition;
+import org.pku.database.project.join.DiskReplicateJoinTool;
+import org.pku.database.project.mapreduce.DiskReplicateJoinMapper;
+import org.pku.database.project.mapreduce.JoinConfigurationUtils;
+import org.pku.database.project.mapreduce.impl.JSONDiskReplicateJoinMapper;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.util.ToolRunner;
 

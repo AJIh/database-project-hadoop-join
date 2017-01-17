@@ -1,6 +1,6 @@
-package join;
+package org.pku.database.project.join;
 
-import condition.Condition;
+import org.pku.database.project.condition.Condition;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.util.Tool;
 

@@ -1,6 +1,5 @@
-package cartesian;
+package org.pku.database.project.cartesian;
 
-import org.apache.commons.configuration.ConfigurationUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
